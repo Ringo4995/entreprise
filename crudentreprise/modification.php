@@ -47,6 +47,8 @@ if (isset($_POST['send'])) {
     }
     if (empty($mdp)) {
         $error .= '<li>Veuillez ajouter votre mot de passe.</li>';
+    }else{
+        $hash = password_hash($mdp, PASSWORD_DEFAULT);
     }
 
     if (empty($error)) {
@@ -55,7 +57,7 @@ if (isset($_POST['send'])) {
             "nom" => $_POST['nom'],
             "prenom" => $_POST['prenom'],
             "mail" => $_POST['mail'],
-            "mdp" => $_POST['mdp'],
+            "mdp" => $hash,
             "genre" => $_POST['genre'],
             "service" => $_POST['service'],
             "date_embauche" => $_POST['date_embauche'],

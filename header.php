@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,12 +31,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/entreprise/afficheemployes.php">Afficher Employés</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/entreprise/crudentreprise/inscription.php">Ajouter un employé</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
+          <?php if (isset($_SESSION['connected']) && $_SESSION['connected']) {
+          ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/entreprise/crudentreprise/inscription.php?deconnexion=true">Deconnexion</a>
+            </li>
+            <?php }else{ ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/entreprise/crudentreprise/inscription.php">Inscription / Connexion</a>
+            </li>
+          <?php } ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <div class="dropdown-menu">

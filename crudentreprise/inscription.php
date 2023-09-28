@@ -3,6 +3,11 @@ include "../fonction.php";
 include "../header.php";
 require "../DB.php";
 
+if(!empty($_GET['deconnexion'])){
+    session_unset();
+    header("location:/entreprise/index.php");
+}
+
 if (isset($_POST['send'])) {
     $prenom = strip_tags($_POST['prenom']);
     $nom = strip_tags($_POST['nom']);
@@ -39,18 +44,18 @@ if (isset($_POST['send'])) {
     }
 
     if (empty($error)) {
-
+        $hash = password_hash($mdp, PASSWORD_DEFAULT);
         $requete->execute([
             "nom" => $nom,
             "prenom" => $prenom,
             "mail" => $mail,
-            "mdp" => $mdp,
+            "mdp" => $hash,
             "genre" => $genre,
             "service" => $service,
             "date_embauche" => $date,
             "salaire" => $salaire
         ]);
-        header("location:/entreprise/afficheemployes.php");
+        header("location:/entreprise/crudentreprise/connexion.php");
     }
 }
 
@@ -60,6 +65,7 @@ if (isset($_POST['send'])) {
 
 
 
+<a href="/entreprise/crudentreprise/connexion.php">Vous avez déjà un compte ?</a>
 
 <div class="container">
 
